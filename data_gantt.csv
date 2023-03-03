@@ -1,0 +1,21 @@
+Task ID,Task Name,Resource,Start Date,End Date,Duration,Percent Complete,Dependencies
+start,Start and planning,Analysis,2023-02-13,2023-02-24,,100,
+data_acquisition,"Get and store VVVX, Gaia data",Data,2023-02-20,2023-03-17,,40,start
+get_labels,Get labels from StarHorse and RRLyr,Data,2023-03-20,2023-03-22,,0,data_acquisition
+quality_check,Check data quality,Data,2023-03-23,2023-03-24,,0,get_labels
+preprocesing_strategy,Define the preprocesing strategy,Data,2023-03-27,2023-03-28,,0,quality_check
+preprocesing_implementation,Implementation of the preprocesing,Data,2023-03-29,2023-03-31,,0,preprocesing_strategy
+data_unbalance,Measure how unbalanced the data is,Data,2023-04-03,2023-04-05,,0,preprocesing_implementation
+metric_determination,Determine adequate metric(s),ML,2023-04-06,2023-04-12,,0,data_unbalance
+upmask_implementation,Implementaion of UPMASK ,UPMASK,2023-02-27,2023-04-07,,20,start
+upmask_training,Train UPMASK model,UPMASK,2023-04-10,2023-04-21,,0,upmask_implementation
+upmask_test,Test UPMASK model,UPMASK,2023-04-10,2023-04-21,,0,upmask_implementation
+upmask_tuning,Tune UPMAKS model,UPMASK,2023-04-10,2023-04-21,,0,upmask_implementation
+upmask_results,Analysis of the UPMASK results ,UPMASK,2023-04-10,2023-04-21,,0,upmask_implementation
+nn_implementation,Code implementaion of the NN ,NN,2023-04-24,2023-05-12,,0,metric_determination
+nn_training,Train NN model,NN,2023-05-15,2023-05-26,,0,nn_implementation
+nn_test,Test NN model,NN,2023-05-15,2023-05-26,,0,nn_implementation
+nn_tuning,Tune NN model,NN,2023-05-15,2023-05-26,,0,nn_implementation
+nn_results,Analysis of the NN results ,NN,2023-05-15,2023-05-26,,0,nn_implementation
+test_other_ml_methods,Explore other ML models to compare,ML,2023-05-29,2023-06-09,,0,
+results_analysis,Analysis of the results,Analysis,2023-06-12,2023-07-14,,0,"upmask_results, nn_results, test_other_ml_methods"

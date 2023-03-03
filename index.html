@@ -1,0 +1,71 @@
+<html>
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load('current', {'packages':['gantt']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function daysToMilliseconds(days) {
+      return days * 24 * 60 * 60 * 1000;
+    }
+
+    function drawChart() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Task ID');
+      data.addColumn('string', 'Task Name');
+      data.addColumn('string', 'Resource');
+      data.addColumn('date', 'Start Date');
+      data.addColumn('date', 'End Date');
+      data.addColumn('number', 'Duration');
+      data.addColumn('number', 'Percent Complete');
+      data.addColumn('string', 'Dependencies');
+
+      data.addRows([
+      ['start', 'Start and planning', 'Analysis', new Date(2023, 1, 13), new Date(2023, 1, 24), null, 100, null],
+      ['data_acquisition', 'Get and store VVVX, Gaia data', 'Data', new Date(2023, 1, 20), new Date(2023, 2, 17), null, 40, 'start'],
+      ['get_labels', 'Get labels from StarHorse and RRLyr', 'Data', new Date(2023, 2, 20), new Date(2023, 2, 22), null, 0, 'data_acquisition'],
+      ['quality_check', 'Check data quality', 'Data', new Date(2023, 2, 23), new Date(2023, 2, 24), null, 0, 'get_labels'],
+      ['preprocesing_strategy', 'Define the preprocesing strategy', 'Data', new Date(2023, 2, 27), new Date(2023, 2, 28), null, 0, 'quality_check'],
+      ['preprocesing_implementation', 'Implementation of the preprocesing', 'Data', new Date(2023, 2, 29), new Date(2023, 2, 31), null, 0, 'preprocesing_strategy'],
+      ['data_unbalance', 'Measure how unbalanced the data is', 'Data', new Date(2023, 3, 03), new Date(2023, 3, 05), null, 0, 'preprocesing_implementation'],
+      ['metric_determination', 'Determine adequate metric(s)', 'ML', new Date(2023, 3, 06), new Date(2023, 3, 12), null, 0, 'data_unbalance'],
+      ['upmask_implementation', 'Implementaion of UPMASK ', 'UPMASK', new Date(2023, 1, 27), new Date(2023, 3, 07), null, 20, 'start'],
+      ['upmask_training', 'Train UPMASK model', 'UPMASK', new Date(2023, 3, 10), new Date(2023, 3, 21), null, 0, 'upmask_implementation'],
+      ['upmask_test', 'Test UPMASK model', 'UPMASK', new Date(2023, 3, 10), new Date(2023, 3, 21), null, 0, 'upmask_implementation'],
+      ['upmask_tuning', 'Tune UPMAKS model', 'UPMASK', new Date(2023, 3, 10), new Date(2023, 3, 21), null, 0, 'upmask_implementation'],
+      ['upmask_results', 'Analysis of the UPMASK results ', 'UPMASK', new Date(2023, 3, 10), new Date(2023, 3, 21), null, 0, 'upmask_implementation'],
+      ['nn_implementation', 'Code implementaion of the NN ', 'NN', new Date(2023, 3, 24), new Date(2023, 4, 12), null, 0, 'metric_determination'],
+      ['nn_training', 'Train NN model', 'NN', new Date(2023, 4, 15), new Date(2023, 4, 26), null, 0, 'nn_implementation'],
+      ['nn_test', 'Test NN model', 'NN', new Date(2023, 4, 15), new Date(2023, 4, 26), null, 0, 'nn_implementation'],
+      ['nn_tuning', 'Tune NN model', 'NN', new Date(2023, 4, 15), new Date(2023, 4, 26), null, 0, 'nn_implementation'],
+      ['nn_results', 'Analysis of the NN results ', 'NN', new Date(2023, 4, 15), new Date(2023, 4, 26), null, 0, 'nn_implementation'],
+      ['test_other_ml_methods', 'Explore other ML models to compare', 'ML', new Date(2023, 4, 29), new Date(2023, 5, 09), null, 0, null],
+      ['results_analysis', 'Analysis of the results', 'Analysis', new Date(2023, 5, 12), new Date(2023, 6, 14), null, 0, 'upmask_results, nn_results, test_other_ml_methods'],
+      ]);
+
+      var options = {
+        title: 'Gantt Chart',
+        height: 1000,
+        gantt: {
+            criticalPathEnabled: true,
+            arrow: {
+              angle: 60,
+            }
+        },
+        
+      };
+
+      var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
+
+      chart.draw(data, options);
+    }
+  </script>
+</head>
+<body>
+  <div id="chart_div"></div>
+</body>
+</html>
